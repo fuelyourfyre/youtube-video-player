@@ -39,87 +39,101 @@ export default function Dashboard() {
 
   return (
     <AppLayout title="Dashboard">
-      <div className="space-y-8">
+      <div className="space-y-6">
       {/* Welcome Section */}
-      <div className="text-center py-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
-          Welcome to YouTube Video Player
+      <div className="text-center py-6">
+        <h1 className="text-title mb-3">
+          Welcome to VideoHub
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Your modern YouTube video player with search, history, and seamless playback experience.
+        <p className="text-body max-w-xl mx-auto">
+          Your minimalist YouTube video player with search, history, and seamless playback.
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="minimal-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">Videos Watched</h3>
-              <p className="text-3xl font-bold text-blue-600">{videoHistory.length}</p>
+              <h3 className="text-body font-medium" style={{ color: 'var(--color-text-secondary)' }}>Videos Watched</h3>
+              <p className="text-2xl font-semibold" style={{ color: 'var(--color-accent)' }}>{videoHistory.length}</p>
             </div>
-            <div className="text-blue-500">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style={{ color: 'var(--color-accent)' }}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="minimal-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">Search Available</h3>
-              <p className="text-3xl font-bold text-green-600">{hasApiKey ? 'Yes' : 'No'}</p>
+              <h3 className="text-body font-medium" style={{ color: 'var(--color-text-secondary)' }}>Search Queries</h3>
+              <p className="text-2xl font-semibold" style={{ color: 'var(--color-success)' }}>0</p>
             </div>
-            <div className={hasApiKey ? 'text-green-500' : 'text-red-500'}>
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style={{ color: 'var(--color-success)' }}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="minimal-card">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-800">API Status</h3>
-              <p className="text-3xl font-bold text-green-600">{hasApiKey ? 'Active' : 'Inactive'}</p>
+              <h3 className="text-body font-medium" style={{ color: 'var(--color-text-secondary)' }}>Total Watch Time</h3>
+              <p className="text-2xl font-semibold" style={{ color: 'var(--color-warning)' }}>~</p>
             </div>
-            <div className={`w-4 h-4 rounded-full ${hasApiKey ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
+            <div style={{ color: 'var(--color-warning)' }}>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Link href="/youtube" className="block">
-          <div className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md p-6 transition-colors">
-            <div className="flex items-center space-x-4">
-              <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="minimal-card hover:shadow-md transition-all duration-200 border" 
+               style={{ 
+                 borderColor: 'var(--color-accent)',
+                 backgroundColor: 'var(--color-accent-light)'
+               }}>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" 
+                   style={{ backgroundColor: 'var(--color-accent)' }}>
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-xl font-semibold">Watch Video</h3>
-                <p className="text-blue-100">Enter a YouTube URL to start watching</p>
+                <h3 className="text-subtitle font-medium">Watch Video</h3>
+                <p className="text-caption" style={{ color: 'var(--color-text-secondary)' }}>Enter a YouTube URL to start watching</p>
               </div>
             </div>
           </div>
         </Link>
 
         <Link href="/youtube" className={`block ${!hasApiKey ? 'opacity-50 cursor-not-allowed' : ''}`}>
-          <div className="bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-md p-6 transition-colors">
-            <div className="flex items-center space-x-4">
-              <div className="bg-white bg-opacity-20 rounded-lg p-3">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="minimal-card hover:shadow-md transition-all duration-200 border" 
+               style={{ 
+                 borderColor: hasApiKey ? 'var(--color-success)' : 'var(--color-border)',
+                 backgroundColor: hasApiKey ? 'var(--color-success-light)' : 'var(--color-surface)'
+               }}>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" 
+                   style={{ backgroundColor: hasApiKey ? 'var(--color-success)' : 'var(--color-text-tertiary)' }}>
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-xl font-semibold">Search Videos</h3>
-                <p className="text-red-100">
+                <h3 className="text-subtitle font-medium">Search Videos</h3>
+                <p className="text-caption" style={{ color: 'var(--color-text-secondary)' }}>
                   {hasApiKey ? 'Find videos using YouTube search' : 'Requires YouTube API key'}
                 </p>
               </div>
@@ -130,48 +144,46 @@ export default function Dashboard() {
 
       {/* Recent Videos */}
       {videoHistory.length > 0 && (
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Recent Videos</h2>
+        <div className="minimal-card">
+          <h2 className="text-subtitle font-medium mb-3">Recent Videos</h2>
           {isLoading ? (
-            <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <div className="flex items-center justify-center py-6">
+              <div className="animate-spin rounded-full h-6 w-6 border-2 border-t-transparent" 
+                   style={{ borderColor: 'var(--color-accent)', borderTopColor: 'transparent' }}></div>
             </div>
           ) : (
-            <div className="space-y-4">
-              {videoHistory.map((video) => (
-                <div key={video.videoId} className="flex items-center space-x-4 p-4 hover:bg-gray-50 rounded-lg transition-colors">
+            <div className="space-y-2">
+              {videoHistory.slice(0, 3).map((video) => (
+                <div key={video.videoId} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                   <img
                     src={`https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg`}
                     alt={video.title}
-                    className="w-20 h-12 object-cover rounded"
+                    className="w-16 h-9 object-cover rounded flex-shrink-0"
                   />
-                  <div className="flex-1">
-                    <h4 className="font-medium text-gray-800 truncate">{video.title}</h4>
-                    <p className="text-sm text-gray-500">
-                      Added {new Date(video.addedAt).toLocaleDateString()}
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-caption font-medium truncate">{video.title}</h4>
+                    <p className="text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
+                      {new Date(video.addedAt).toLocaleDateString()}
                     </p>
                   </div>
                   <Link
                     href={`/youtube?url=${encodeURIComponent(video.url)}`}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
+                    className="minimal-button text-xs px-2 py-1"
                   >
-                    Watch Again
+                    Watch
                   </Link>
                 </div>
               ))}
-              <div className="pt-4 border-t border-gray-200">
-                <Link
-                  href="/youtube"
-                  className="text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  View All History →
+              {videoHistory.length > 3 && (
+                <Link href="/youtube" className="block text-center pt-2">
+                  <span className="text-caption" style={{ color: 'var(--color-accent)' }}>View all {videoHistory.length} videos →</span>
                 </Link>
-              </div>
+              )}
             </div>
           )}
         </div>
       )}
-      </div>
-    </AppLayout>
+    </div>
+  </AppLayout>
   );
 }

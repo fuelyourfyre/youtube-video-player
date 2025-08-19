@@ -1,0 +1,204 @@
+/* YouTube Classic Theme */
+:root {
+  /* YouTube Brand Color Palette */
+  --color-primary: #ffffff;        /* White background */
+  --color-surface: #ffffff;        /* Card/surface background */
+  --color-background: #f9f9f9;     /* Light gray background */
+  --color-border: #e0e0e0;         /* Light borders */
+  --color-text-primary: #0f0f0f;   /* Dark text */
+  --color-text-secondary: #606060; /* Gray text */
+  --color-text-tertiary: #909090;  /* Light gray text */
+  --color-accent: #ff0000;          /* YouTube red */
+  --color-accent-light: #fff0f0;   /* Light red background */
+  --color-accent-hover: #cc0000;   /* Darker red for hover */
+  --color-success: #00d562;        /* Green for success states */
+  --color-success-light: #f0fff4;  /* Light green background */
+  --color-warning: #ff9500;        /* Orange for warnings */
+  --color-warning-light: #fff8f0;  /* Light orange background */
+  --color-error: #ff0000;          /* Red for errors */
+  --color-error-light: #fff0f0;    /* Light red background */
+  --color-video-bg: #000000;       /* Black for video areas */
+  --color-sidebar: #f9f9f9;        /* Sidebar background */
+  --color-header: #ffffff;         /* Header background */
+  --color-surface-hover: #f0f0f0;  /* Hover state for surfaces */
+  
+  /* Spacing System */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 0.75rem;  /* 12px */
+  --spacing-lg: 1rem;     /* 16px */
+  --spacing-xl: 1.5rem;   /* 24px */
+  --spacing-2xl: 2rem;    /* 32px */
+  
+  /* Typography Scale */
+  --font-size-caption: 0.75rem;    /* 12px */
+  --font-size-body: 0.875rem;      /* 14px */
+  --font-size-subtitle: 1rem;      /* 16px */
+  --font-size-title: 1.25rem;      /* 20px */
+  --font-size-heading: 1.5rem;     /* 24px */
+  
+  /* Border Radius - YouTube style */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  
+  /* Shadows - YouTube style */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 250ms ease-out;
+  --transition-slow: 300ms ease-out;
+}
+
+/* Base Styles - YouTube Theme */
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* YouTube Theme Component Classes */
+.minimal-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-fast);
+}
+
+.minimal-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
+}
+
+.minimal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  min-width: 2.5rem;
+}
+
+.minimal-button:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.minimal-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-body);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: var(--transition-fast);
+}
+
+.minimal-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-light);
+}
+
+.minimal-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.minimal-sidebar {
+  background-color: var(--color-sidebar);
+  border-right: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.minimal-header {
+  background-color: var(--color-header);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Typography Classes */
+.text-caption {
+  font-size: var(--font-size-caption);
+  color: var(--color-text-secondary);
+}
+
+.text-body {
+  font-size: var(--font-size-body);
+  color: var(--color-text-primary);
+}
+
+.text-subtitle {
+  font-size: var(--font-size-subtitle);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.text-title {
+  font-size: var(--font-size-title);
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.text-heading {
+  font-size: var(--font-size-heading);
+  color: var(--color-text-primary);
+  font-weight: 800;
+}
+
+/* Video-Focused Styles */
+.video-container {
+  background-color: var(--color-video-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.video-thumbnail {
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+}
+
+.video-thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+/* YouTube Theme Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}

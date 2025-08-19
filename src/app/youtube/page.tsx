@@ -25,66 +25,58 @@ export default function YouTube() {
   }, []);
 
   return (
-    <AppLayout title="YouTube Video Player">
-      <div className="max-w-7xl mx-auto">
+    <AppLayout title="YouTube">
+      <div className="max-w-6xl mx-auto space-y-4">
         {/* URL Input Section */}
-        <div className="mb-8">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Enter YouTube URL
-            </h2>
-            <URLInput onURLChange={handleURLChange} value={currentUrl} />
-          </div>
+        <div className="minimal-card">
+          <h2 className="text-subtitle font-medium mb-3">
+            Enter YouTube URL
+          </h2>
+          <URLInput onURLChange={handleURLChange} value={currentUrl} />
         </div>
 
         {/* Search Section */}
-        <div className="mb-8">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Search YouTube Videos
-            </h2>
-            <SearchVideos onVideoSelect={handleVideoSelect} />
-          </div>
+        <div className="minimal-card">
+          <h2 className="text-subtitle font-medium mb-3">
+            Search YouTube Videos
+          </h2>
+          <SearchVideos onVideoSelect={handleVideoSelect} />
         </div>
 
         {/* Video Player and Info Section */}
         {currentUrl && (
-          <div className="mb-8">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-6">
-                Now Playing
-              </h2>
+          <div className="minimal-card">
+            <h2 className="text-subtitle font-medium mb-4">
+              Now Playing
+            </h2>
+            
+            {/* Desktop: Side by side, Mobile: Stacked */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {/* Video Player */}
+              <div className="lg:col-span-1">
+                <VideoPlayer 
+                  url={currentUrl} 
+                  onVideoAdded={handleVideoAdded}
+                />
+              </div>
               
-              {/* Desktop: Side by side, Mobile: Stacked */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Video Player */}
-                <div className="lg:col-span-1">
-                  <VideoPlayer 
-                    url={currentUrl} 
-                    onVideoAdded={handleVideoAdded}
-                  />
-                </div>
-                
-                {/* Video Info */}
-                <div className="lg:col-span-1">
-                  <VideoInfo url={currentUrl} />
-                </div>
+              {/* Video Info */}
+              <div className="lg:col-span-1">
+                <VideoInfo url={currentUrl} />
               </div>
             </div>
           </div>
         )}
 
         {/* Video History Section */}
-        <div className="mb-8">
-          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Video History
-            </h2>
-            <VideoHistory 
-              onVideoSelect={handleVideoSelect}
-              refreshTrigger={refreshTrigger}
-            />
-          </div>
+        <div className="minimal-card">
+          <h2 className="text-subtitle font-medium mb-3">
+            Video History
+          </h2>
+          <VideoHistory 
+            onVideoSelect={handleVideoSelect}
+            refreshTrigger={refreshTrigger}
+          />
         </div>
       </div>
     </AppLayout>

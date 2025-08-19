@@ -1,44 +1,52 @@
 'use client';
 
+import { useEffect } from 'react';
+import ThemeSwitcher from '@/components/ui/ThemeSwitcher';
+import { themeManager } from '@/utils/themeManager';
+
 interface HeaderProps {
   onSidebarToggle: () => void;
-  title: string;
+  title?: string;
 }
 
 export default function Header({ onSidebarToggle, title }: HeaderProps) {
+  useEffect(() => {
+    // Initialize theme manager on component mount
+    if (typeof window !== 'undefined') {
+      // Load saved theme or apply default theme
+      const savedTheme = localStorage.getItem('app-theme');
+      const themeToApply = savedTheme || 'dark'; // Default to dark theme
+      themeManager.applyTheme(themeToApply);
+    }
+  }, []);
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm">
+    <header className="minimal-header">
       <div className="flex items-center justify-between px-4 py-3">
-        {/* Left side - Hamburger menu and title */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-3">
           <button
             onClick={onSidebarToggle}
-            className="p-2 rounded-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="minimal-button p-2"
+            style={{ minWidth: 'auto' }}
             aria-label="Toggle sidebar"
           >
-            <svg 
-              className="w-6 h-6 text-gray-600" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M4 6h16M4 12h16M4 18h16" 
-              />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          
-          <h1 className="text-xl font-semibold text-gray-800">
-            {title}
-          </h1>
+          <h1 className="text-title">VideoHub</h1>
         </div>
-
-        {/* Right side - Optional actions */}
-        <div className="flex items-center space-x-2">
-          {/* You can add additional header actions here */}
+        
+        <div className="flex items-center gap-3">
+          <ThemeSwitcher />
+          <div className="flex items-center gap-1 px-2 py-1 rounded text-xs" 
+               style={{ 
+                 backgroundColor: 'var(--color-success-light)', 
+                 color: 'var(--color-success)' 
+               }}>
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" 
+                 style={{ backgroundColor: 'var(--color-success)' }} />
+            <span>Live</span>
+          </div>
         </div>
       </div>
     </header>

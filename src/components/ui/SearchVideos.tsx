@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, memo, useEffect, useMemo } from 'react';
+import { useState, useCallback, memo, useEffect } from 'react';
 import { searchYouTubeVideos, getYouTubeVideoDetails, YouTubeSearchResult } from '@/utils/youtubeApi';
 
 interface SearchResult {
@@ -116,7 +116,7 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
         <div className="flex gap-3">
           <div className="flex-1 relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-5 w-5" style={{ color: 'var(--color-accent)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -125,7 +125,13 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search YouTube videos..."
-              className="w-full pl-10 pr-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-colors"
+              className="w-full pl-10 pr-4 py-3 text-lg minimal-input"
+              style={{
+                boxShadow: 'var(--shadow-md)',
+                borderColor: searchQuery ? 'var(--color-accent)' : 'var(--color-border)',
+                transition: 'all 0.2s ease-in-out',
+                backgroundImage: 'linear-gradient(to bottom, var(--color-surface), var(--color-primary))',
+              }}
             />
             {searchQuery && (
               <button
@@ -133,7 +139,13 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
                 onClick={clearSearch}
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
-                <svg className="h-5 w-5 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className="h-5 w-5 hover:opacity-70 transition-opacity" 
+                  style={{ color: 'var(--color-text-tertiary)' }}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -142,7 +154,15 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
           <button
             type="submit"
             disabled={!searchQuery.trim() || loading}
-            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+            className="minimal-button-primary px-6 py-3"
+            style={{
+              background: 'linear-gradient(to right, var(--color-accent), var(--color-accent-hover))',
+              boxShadow: 'var(--shadow-md)', 
+              borderRadius: 'var(--radius-md)',
+              fontSize: 'var(--font-size-body)',
+              fontWeight: '500',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+            }}
           >
             {loading ? (
               <div className="flex items-center gap-2">
@@ -158,14 +178,23 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
 
       {/* Search Results */}
       {showResults && (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="rounded-lg p-6" style={{ 
+          backgroundColor: 'var(--color-surface)', 
+          borderColor: 'var(--color-accent)', 
+          borderWidth: '1px',
+          borderLeftWidth: '3px',
+          boxShadow: 'var(--shadow-lg)',
+          backgroundImage: 'linear-gradient(to bottom, var(--color-surface), rgba(0,0,0,0.25))',
+          backdropFilter: 'blur(3px)'
+        }}>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold" style={{ color: 'var(--color-text-primary)' }}>
               Search Results {searchResults.length > 0 && `(${searchResults.length})`}
             </h3>
             <button
               onClick={() => setShowResults(false)}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="hover:opacity-70 transition-opacity"
+              style={{ color: 'var(--color-text-tertiary)' }}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -175,27 +204,40 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
 
           {loading && (
             <div className="flex items-center justify-center py-12">
-              <div className="flex items-center gap-3 text-gray-600">
-                <div className="w-6 h-6 border-2 border-gray-300 border-t-red-600 rounded-full animate-spin"></div>
+              <div className="flex items-center gap-3" style={{ color: 'var(--color-text-secondary)' }}>
+                <div className="w-6 h-6 border-2 rounded-full animate-spin" style={{ 
+                  borderColor: 'var(--color-border)',
+                  borderTopColor: 'var(--color-accent)'
+                }}></div>
                 <span>Searching for videos...</span>
               </div>
             </div>
           )}
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+            <div className="rounded-lg p-4 mb-4" style={{ 
+              backgroundColor: 'rgba(220, 38, 38, 0.1)',
+              borderWidth: '1px',
+              borderColor: 'rgba(220, 38, 38, 0.3)'
+            }}>
               <div className="flex items-center">
-                <svg className="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2" style={{ color: 'rgba(220, 38, 38, 0.8)' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-red-800">{error}</span>
+                <span style={{ color: 'rgba(220, 38, 38, 0.9)' }}>{error}</span>
               </div>
             </div>
           )}
 
           {!loading && !error && searchResults.length === 0 && (
-            <div className="text-center py-12 text-gray-500">
-              <svg className="w-12 h-12 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center py-12" style={{ color: 'var(--color-text-secondary)' }}>
+              <svg 
+                className="w-12 h-12 mx-auto mb-4" 
+                style={{ color: 'var(--color-text-tertiary)' }} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <p>No videos found. Try a different search term.</p>
@@ -208,7 +250,18 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
                 <div
                   key={result.id}
                   onClick={() => handleVideoClick(result)}
-                  className="bg-gray-50 rounded-lg p-4 cursor-pointer hover:bg-gray-100 transition-colors border border-gray-200 hover:border-red-300"
+                  className="rounded-lg p-4 cursor-pointer transition-all hover:translate-y-[-2px]"
+                  style={{
+                    backgroundColor: 'var(--color-surface)',
+                    borderWidth: '1px',
+                    borderColor: 'var(--color-border)',
+                    borderLeftColor: 'var(--color-accent)',
+                    borderLeftWidth: '2px',
+                    boxShadow: 'var(--shadow-md)',
+                    backgroundImage: 'linear-gradient(135deg, var(--color-surface), var(--color-primary))',
+                    transform: 'translateZ(0)',
+                    transition: 'all 0.3s ease',
+                  }}
                 >
                   {/* Thumbnail */}
                   <div className="relative mb-3">
@@ -240,11 +293,11 @@ const SearchVideos = memo(function SearchVideos({ onVideoSelect }: SearchVideosP
 
                   {/* Video Info */}
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 line-clamp-2 leading-tight">
+                    <h4 className="font-medium mb-2 line-clamp-2 leading-tight" style={{ color: 'var(--color-text-primary)' }}>
                       {result.title}
                     </h4>
-                    <p className="text-sm text-gray-600 mb-1">{result.channelTitle}</p>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <p className="text-sm mb-1" style={{ color: 'var(--color-text-secondary)' }}>{result.channelTitle}</p>
+                    <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--color-text-tertiary)' }}>
                       <span>{result.viewCount}</span>
                       <span>•</span>
                       <span>{result.publishedAt}</span>

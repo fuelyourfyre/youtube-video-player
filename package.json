@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "next": "15.4.5",
     "react": "19.1.0",

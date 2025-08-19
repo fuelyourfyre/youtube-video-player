@@ -43,6 +43,15 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )
+    },
+    {
+      name: 'Videos',
+      href: '/videos',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+        </svg>
+      )
     }
   ];
 
@@ -63,55 +72,69 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 shadow-lg z-50 w-64 ${
+        className={`fixed top-0 left-0 h-full minimal-sidebar z-50 w-56 ${
           isOpen ? 'translate-x-0' : '-translate-x-full transition-transform duration-200 ease-out'
         }`}
       >
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-800">Navigation</h2>
+        <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: 'var(--color-border)' }}>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-red-500 rounded flex items-center justify-center">
+              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </div>
+            <span className="text-subtitle">VideoHub</span>
+          </div>
           <button
             onClick={onToggle}
-            className="p-2 rounded-md hover:bg-gray-100 transition-colors md:hidden"
+            className="minimal-button p-1 md:hidden"
+            style={{ minWidth: 'auto', padding: 'var(--spacing-xs)' }}
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
         {/* Navigation Items */}
-        <nav className="p-4">
-          <ul className="space-y-2">
+        <nav className="p-3">
+          <div className="space-y-1">
             {navigationItems.map((item) => {
               const isActive = pathname === item.href || (pathname === '/' && item.href === '/dashboard');
               
               return (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    onClick={handleLinkClick}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors duration-200 ${
-                      isActive
-                        ? 'bg-blue-100 text-blue-700 border border-blue-200'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                    }`}
-                  >
-                    <span className={isActive ? 'text-blue-700' : 'text-gray-500'}>
-                      {item.icon}
-                    </span>
-                    <span className="font-medium">{item.name}</span>
-                  </Link>
-                </li>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={handleLinkClick}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 text-sm`}
+                  style={{
+                    backgroundColor: isActive ? 'var(--color-accent-light)' : 'transparent',
+                    color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-primary)',
+                    borderColor: isActive ? 'var(--color-accent)' : 'transparent',
+                    border: isActive ? '1px solid var(--color-accent)' : '1px solid transparent'
+                  }}
+                >
+                  <span className={`w-4 h-4 flex-shrink-0`}
+                        style={{ color: isActive ? 'var(--color-accent)' : 'var(--color-text-secondary)' }}>
+                    {item.icon}
+                  </span>
+                  <span className="font-medium">{item.name}</span>
+                  {isActive && (
+                    <div className="ml-auto w-1 h-4 bg-blue-600 rounded-full" 
+                         style={{ backgroundColor: 'var(--color-accent)' }} />
+                  )}
+                </Link>
               );
             })}
-          </ul>
+          </div>
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-          <div className="text-xs text-gray-500 text-center">
-            YouTube Video Player v1.0
+        <div className="absolute bottom-0 left-0 right-0 px-3 py-2 border-t" style={{ borderColor: 'var(--color-border)' }}>
+          <div className="text-caption text-center">
+            VideoHub v1.0
           </div>
         </div>
       </div>
